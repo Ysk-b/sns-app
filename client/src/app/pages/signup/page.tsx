@@ -22,7 +22,7 @@ const Signup = () => {
         email,
         password,
       });
-      router.push('/login');
+      router.push('/pages/login');
     } catch (err) {
       alert('入力内容が誤っています');
     }
