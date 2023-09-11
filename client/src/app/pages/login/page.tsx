@@ -1,7 +1,35 @@
+'use client';
+
+import { apiClient } from '@/app/lib/apiClient';
 import Head from 'next/head';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // ログインを行うAPIを叩く
+    // 成功時、ログインページにリダイクレト
+    try {
+      const response = await apiClient.post('/auth/login', {
+        email,
+        password,
+      });
+
+      const token = response.data.token;
+      console.log(token);
+
+      router.push('/');
+    } catch (err) {
+      alert('入力内容が誤っています');
+    }
+  };
+
   return (
     <div className='flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
       <Head>
@@ -14,7 +42,7 @@ const Login = () => {
       </div>
       <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
         <div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor='email' className='block text-sm font-medium text-gray-700'>
                 メールアドレス
@@ -26,6 +54,7 @@ const Login = () => {
                 autoComplete='email'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               />
             </div>
             <div className='mt-6'>
@@ -39,6 +68,7 @@ const Login = () => {
                 autoComplete='current-password'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               />
             </div>
             <div className='mt-6'>
