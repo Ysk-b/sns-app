@@ -1,15 +1,21 @@
 'use client';
 
+import { useAuth } from '@/app/context/auth';
 import { apiClient } from '@/app/lib/apiClient';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+
+// エラーハンドリング必要
+// prisma.user.create()メソッドが呼び出された際に、
+// 既にデータベース内に同じemailが存在しており新規ユーザー作成できない
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const router = useRouter();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,6 +28,7 @@ const Login = () => {
       });
 
       const token = response.data.token;
+      login(token);
 
       router.push('/');
     } catch (err) {
