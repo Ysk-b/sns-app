@@ -1,18 +1,31 @@
 'use client';
 
+import { apiClient } from '@/app/lib/apiClient';
 import Head from 'next/head';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 const Signup = () => {
-  const [name, setName] = useState('');
+  const [username, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setName('');
-    setEmail('');
-    setPassword('');
+    // 新規登録を行うAPIを叩く
+    // 成功時、ログインページにリダイクレト
+    try {
+      await apiClient.post('/auth/register', {
+        username,
+        email,
+        password,
+      });
+      router.push('/login');
+    } catch (err) {
+      alert('入力内容が誤っています');
+    }
   };
 
   return (
@@ -37,7 +50,7 @@ const Signup = () => {
                 autoComplete='name'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
               />
             </div>
             <div className='mt-6'>
