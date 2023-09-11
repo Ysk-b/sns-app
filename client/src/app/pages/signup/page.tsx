@@ -1,6 +1,20 @@
-import Head from "next/head";
+'use client';
 
-const Singup = () => {
+import Head from 'next/head';
+import { useState } from 'react';
+
+const Signup = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setName('');
+    setEmail('');
+    setPassword('');
+  };
+
   return (
     <div className='flex flex-col justify-center sm:px-6 lg:px-8'>
       <Head>
@@ -11,7 +25,7 @@ const Singup = () => {
       </div>
       <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
         <div className='bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10'>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div>
               <label htmlFor='email' className='block text-sm font-medium text-gray-700'>
                 お名前
@@ -23,6 +37,7 @@ const Singup = () => {
                 autoComplete='name'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
               />
             </div>
             <div className='mt-6'>
@@ -36,6 +51,7 @@ const Singup = () => {
                 autoComplete='email'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               />
             </div>
             <div className='mt-6'>
@@ -49,6 +65,7 @@ const Singup = () => {
                 autoComplete='new-password'
                 required
                 className='mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500'
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               />
             </div>
             <div className='mt-6'>
@@ -66,4 +83,4 @@ const Singup = () => {
   );
 };
 
-export default Singup;
+export default Signup;
