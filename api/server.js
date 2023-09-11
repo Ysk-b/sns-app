@@ -49,7 +49,7 @@ app.post("/api/auth/login", async (req, res) => {
   }
 
   const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
-    expiresIn: "id",
+    expiresIn: "1d",
   });
 
   return res.json({ token });
