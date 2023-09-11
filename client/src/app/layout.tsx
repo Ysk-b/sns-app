@@ -2,6 +2,7 @@ import './styles/globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import NavBar from './components/Molecules/NavBar';
+import { AuthProvider } from './context/auth';
 
 const inter = Inter({ subsets: ['latin'] });
 const siteName = 'SNS App';
@@ -45,8 +46,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='ja'>
       <body className={inter.className}>
-        <NavBar />
-        {children}
+        <AuthProvider>
+          <NavBar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

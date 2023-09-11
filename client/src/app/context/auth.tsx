@@ -3,9 +3,19 @@
 
 'use client';
 
+import React from 'react';
 import { useContext } from 'react';
 
-const AuthContext = React.createContext({
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+interface AuthContextType {
+  login: (token: string) => void,
+  logout: () => void,
+}
+
+const AuthContext = React.createContext<AuthContextType>({
   login: () => {},
   logout: () => {},
 });
@@ -14,7 +24,7 @@ export const useAuth = () => {
   return useContext(AuthContext);
 };
 
-export const AuthProvider = ({ children }) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const login = async (token: string) => {
     localStorage.setItem('auth_token', token);
   };
@@ -28,5 +38,6 @@ export const AuthProvider = ({ children }) => {
     logout,
   };
 
+  // childrend → layout.tsxに記載の<NavBar>{children}<  /NavBar>となる
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
