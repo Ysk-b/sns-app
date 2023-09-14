@@ -15,8 +15,13 @@ const Signup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // 新規登録を行うAPIを叩く
-    // 成功時、ログインページにリダイクレト
+    // このreqは/auth/registerエンドポイントに送信される
+    // reqのボディにusername、email、passwordが含まれる
     try {
+      // apiClient.post → axiosインスタンスのpostメソッド
+      // = 指定したURLにHTTP POSTリクエストを送信する
+      // 1: 送信先URLのendpoint. apiClientにはbaseURLの指定がある為、以下URLは相対パスとなる
+      // 2: サーバに送信されるreqのbodyデータ/
       await apiClient.post('/auth/register', {
         username,
         email,

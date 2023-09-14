@@ -1,0 +1,64 @@
+処理の流れ
+★ BACKEND
+1. Node.js(Express)でサーバー構築 
+  ※ 別途不足点学習
+
+2. prismaのインストール/初期化設定
+・.envに連携したいツールのDB_URLを指定
+・schema.prismaに使用したいDBの内容を、'オブジェクト形式'で記載
+・マイグレーション: DBの内容をSQL文化(テーブル化)して出力
+  → 連携ツールにschema.prismaに記載した内容のテーブルが出力されている
+  e.g. 今回model User{}, Post{}を記載し、SupabaseにはUser, Postテーブルが自動生成された
+
+3. API実装
+・Express.jsのルーター内でルート（エンドポイント）を定義
+  ※ 詳細はauth.jsに記載
+・Postmanやthunder ClientでAPIテスト実施
+
+★FRONTEND
+・新規登録・ログインのUI実装。name, email, passwordをuseStateの状態変数で管理
+・onSubmitで、submit時に以下処理が走る実装
+  ‐axiosでapiClientを別立てし、フロント側でAPIを叩く  
+
+■ Prisma
+・Node.jsを対象としたオープンソースORM
+・各種DB, Lib, FWとの連携が可能
+ 
+ https://qiita.com/am_765/items/5e42bd5f87b296f61fbc
+
+ ■ ORM
+ ・RDBに対するデータの操作/管理をオブジェクト指向型言語で可能にする手法
+  → SQLを書かずにDBの操作及び管理が可能
+ https://zenn.dev/myuki/books/02fe236c7bc377/viewer/d2422a
+
+ ■ RDBとNoSQL
+ ・RDB: データを複数の表として管理し、それぞれの関係を定義することで、複雑なデータ処理が可能。
+ ・NoSQL: 「大容量データを取り扱う際の処理速度が低下する」というRDBの課題を解決するDB
+  → メリデメは以下で確認
+ https://www.topgate.co.jp/blog/google-service/13350
+
+
+ ■ Express.js
+・req, resオブジェクトの生成条件
+  ‐ Express.jsのルーター内でルート（エンドポイント）を定義
+    (e.g. const router = require("express").Router();)
+  ‐ HTTPメソッド（e.g. router.post()）に対応するコールバック関数を設定
+  ‐ req, resオブジェクトが自動生成され、コールバック関数の引数として渡される
+
+・reqとres
+  ‐req: HTTPリクエストに関するオブジェクト = クライアントからの情報取得が可能
+  ‐res: HTTPレスポンスに関するオブジェクト = クライアントに対するレスポンス送信が可能
+
+・res.send()とres.json()
+  ‐res.json()はres.send()を兼ねる。
+  ‐JSON形式のデータを生成しクライアントに送信する為のメソッド
+
+
+■LIB, FW, ツール
+・JWT(JSON Web Token)の仕組み
+  → JSONベースのデータを暗号化して生成される文字列
+  https://zenn.dev/mikakane/articles/tutorial_for_jwt
+
+・nodemon
+  → コードを監視して、自動でサーバーを再起動してくれるツール
+  https://qiita.com/mitsuhiro_K/items/429ca479b4e191bfea4d
