@@ -9,7 +9,7 @@ const prisma = new PrismaClient();
 // 1. HTTP POSTリクエストに対する /register エンドポイントを定義(ユーザー情報の送信先)
 router.post("/register", async (req, res) => {
   // 2. HTTPリクエストのボディ(req)から、username、email、passwordの情報を取得
-  // ※ usename等の変数は、クライアントサイドで指定された値に準拠する 
+  // ※ usename等の変数は、クライアントサイドで指定された値に準拠する
   const { username, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -59,6 +59,12 @@ router.post("/login", async (req, res) => {
     return res.status(401).json({ error: "パスワードが間違っています" });
   }
 
+  // token発行
+  // 1: JWTに含めるpayloadデータ。一般的にユーザーの一意の識別子などの情報を含む
+  // 2: JWTを署名するための秘密鍵
+  // ※ セキュリティ観点からenvファイルに格納したSECRET_KEYを指定
+  // 3: トークンの有効期限等オプション指定
+
   const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
     expiresIn: "1d",
   });
@@ -66,4 +72,6 @@ router.post("/login", async (req, res) => {
   return res.json({ token });
 });
 
+// Node.jsにおいて、モジュール内の特定の変数や関数を、
+// 外部のモジュールから利用可能にするための仕組み
 module.exports = router;

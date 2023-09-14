@@ -53,3 +53,13 @@
 ・res.send()とres.json()
   ‐res.json()はres.send()を兼ねる。
   ‐JSON形式のデータを生成しクライアントに送信する為のメソッド
+
+
+■LIB, FW, ツール
+・JWT(JSON Web Token)の仕組み
+  → JSONベースのデータを暗号化して生成される文字列
+  https://zenn.dev/mikakane/articles/tutorial_for_jwt
+
+・nodemon
+  → コードを監視して、自動でサーバーを再起動してくれるツール
+  https://qiita.com/mitsuhiro_K/items/429ca479b4e191bfea4d
