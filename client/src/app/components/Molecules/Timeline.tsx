@@ -3,9 +3,11 @@
 import React, { useState } from 'react';
 import Post from './Post';
 import { apiClient } from '@/app/lib/apiClient';
+import { PostProps } from '@/app/types/types';
 
 const Timeline = () => {
   const [postText, setPostText] = useState<string>('');
+  const [latestPost, setLatestPost] = useState<PostProps[]>([]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
