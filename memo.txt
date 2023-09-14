@@ -15,11 +15,10 @@
   ※ 詳細はauth.jsに記載
 ・Postmanやthunder ClientでAPIテスト実施
 
-4. 
-
-
 ★FRONTEND
-・
+・新規登録・ログインのUI実装。name, email, passwordをuseStateの状態変数で管理
+・onSubmitで、submit時に以下処理が走る実装
+  ‐axiosでapiClientを別立てし、フロント側でAPIを叩く  
 
 ■ Prisma
 ・Node.jsを対象としたオープンソースORM
