@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 const { PrismaClient } = require("@prisma/client");
+const generateIdenticon = require("../utils/identiconGenerator");
 const prisma = new PrismaClient();
 
 // 新規ユーザー登録用API
@@ -12,6 +13,8 @@ router.post("/register", async (req, res) => {
   // ※ usename等の変数は、クライアントサイドで指定された値に準拠する
   const { username, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
+
+  const defaultIconImage = generateIdenticon(email);
 
   // 3. prismaの'user'テーブルに、新しいレコード(行)を作成
   // ※ username, email, passwordフィールド値を持つレコードをDBに挿入し、変数userに格納
@@ -27,7 +30,7 @@ router.post("/register", async (req, res) => {
       profile: {
         create: {
           bio: "Hello World",
-          profileImageUrl: "",
+          profileImageUrl: defaultIconImage,
         },
       },
     },

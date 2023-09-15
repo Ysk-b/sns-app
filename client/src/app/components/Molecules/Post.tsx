@@ -13,7 +13,7 @@ const Post = ({ post }: PostTypeProps) => {
         <div className='flex items-center mb-2'>
           <Image
             className='w-10 h-10 rounded-full mr-2'
-            src=' /next.svg'
+            src={post.author.profile?.profileImageUrl}
             alt='User Avatar'
             width={12}
             height={12}
