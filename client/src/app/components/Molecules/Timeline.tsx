@@ -13,10 +13,13 @@ const Timeline = () => {
     e.preventDefault();
 
     try {
-      await apiClient.post('/posts/post', {
+      // 新規投稿作成のPOSTリクエストを、サーバーに対して送信
+      const newPost = await apiClient.post('/posts/post', {
+        // contetプロパティをreqのbodyに追加
         content: postText,
       });
-
+      // 新規投稿を既存の投稿に追加 → latestPost変数で管理可能
+      setLatestPost((prevPosts) => [newPost.data, ...prevPosts]);
       setPostText('');
     } catch (err) {
       alert('ログインして下さい');
@@ -42,7 +45,9 @@ const Timeline = () => {
             </button>
           </form>
         </div>
-        <Post />
+        {latestPost.map((post: PostProps) => (
+          <Post key={post.id} post={post} />
+        ))}
       </main>
     </div>
   );
