@@ -22,11 +22,14 @@ const Login = () => {
     // ログインを行うAPIを叩く
     // 成功時、ログインページにリダイクレト
     try {
+      // req:'/auth/login'エンドポイントへ送信される
+      // email, passwordに関する情報をbodyに含む
       const response = await apiClient.post('/auth/login', {
         email,
         password,
       });
 
+      // responst.dataにresデータ格納。中のtokenにアクセスし、tokenを取得
       const token = response.data.token;
       login(token);
 
