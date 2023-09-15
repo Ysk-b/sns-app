@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 router.get("/find", isAuthenticated, async (req, res) => {
   try {
     const user = await prisma.user.findUnique({ where: { id: req.userId } });
-    console.log(user);
 
     if (!user) {
       res.status(404).json({ error: "ユーザーが見つかりませんでした。" });
@@ -21,4 +20,4 @@ router.get("/find", isAuthenticated, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = router; 

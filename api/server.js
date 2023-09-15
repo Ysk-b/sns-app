@@ -3,7 +3,7 @@ const app = express();
 // 特定のURLパスに対するルーティング処理を行うルーターモジュール
 const authRoute = require("./routers/auth");
 const postsRoute = require("./routers/post");
-// const usersRoute = require("./routers/user")
+const usersRoute = require("./routers/user")
 const cors = require("cors");
 
 require("dotenv").config();
@@ -18,6 +18,6 @@ app.use(express.json());
 // 以下は、"/api/auth" パスに対するリクエストが到達した場合、authRoute ミドルウェアが実行される処理
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postsRoute);
-// app.use("/api/users", usersRoute);
+app.use("/api/users", usersRoute);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
