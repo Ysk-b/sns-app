@@ -34,6 +34,9 @@ router.post("/register", async (req, res) => {
         },
       },
     },
+    include: {
+      profile: true,
+    },
   });
 
   // 作成されたuserオブジェクトをjson形式で返す

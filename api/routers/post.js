@@ -1,12 +1,13 @@
 const router = require("express").Router();
 
 const { PrismaClient } = require("@prisma/client");
+const isAuthenticated = require("../middlewares/isAuthenticated");
 const prisma = new PrismaClient();
 
 // 呟き投稿用API
 // 目的: ユーザーからの新しい投稿をサーバーに保存
 // 処理: reqのボディから投稿内容(content)を受け取り、DBに保存
-router.post("/post", async (req, res) => {
+router.post("/post", isAuthenticated, async (req, res) => {
   const { content } = req.body;
 
   if (!content) {
@@ -17,14 +18,14 @@ router.post("/post", async (req, res) => {
     const newPost = await prisma.post.create({
       data: {
         content,
-        authorId: 1,
+        authorId: req.userId,
       },
       include: {
         author: {
           include: {
             profile: true,
-          }
-        }
+          },
+        },
       },
     });
 
