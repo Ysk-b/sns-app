@@ -13,14 +13,14 @@ const Post = ({ post }: PostTypeProps) => {
         <div className='flex items-center mb-2'>
           <Image
             className='w-10 h-10 rounded-full mr-2'
-            src=' /next.svg' 
+            src=' /next.svg'
             alt='User Avatar'
             width={12}
             height={12}
           />
           <div>
             <h2 className='font-semibold text-md'>{post.author?.username}</h2>
-            <p className='text-gray-500 text-sm'>{post.createdAt}.</p>
+            <p className='text-gray-500 text-sm'>{new Date(post.createdAt).toLocaleString()}</p>
           </div>
         </div>
         <p className='text-gray-700'>{post.content}</p>

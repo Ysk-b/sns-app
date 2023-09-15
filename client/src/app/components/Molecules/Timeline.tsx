@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Post from './Post';
 import { apiClient } from '@/app/lib/apiClient';
 import { PostProps } from '@/app/types/types';
@@ -25,6 +25,18 @@ const Timeline = () => {
       alert('ログインして下さい');
     }
   };
+
+  useEffect(() => {
+    const fetchLatestPosts = async () => {
+      try {
+        const response = await apiClient.get('/posts/get_latest_post');
+        setLatestPost(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchLatestPosts();
+  }, []);
 
   return (
     <div className='min-h-screen bg-gray-100'>
