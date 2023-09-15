@@ -3,7 +3,7 @@ export interface UserProps {
   username: string;
   email: string;
   password: string;
-  posts: PostType[];
+  posts: PostProps[];
 }
 
 export interface PostProps {
@@ -11,5 +11,5 @@ export interface PostProps {
   content: string;
   createdAt: string;
   authorId: number;
-  author: UserType;
+  author: UserProps;
 }
