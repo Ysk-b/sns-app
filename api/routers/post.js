@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // 呟き投稿用API
+// 目的: ユーザーからの新しい投稿をサーバーに保存
+// 処理: reqのボディから投稿内容(content)を受け取り、DBに保存
 router.post("/post", async (req, res) => {
   const { content } = req.body;
 
@@ -32,6 +32,8 @@ router.post("/post", async (req, res) => {
 });
 
 // 最新呟き取得用API
+// 目的: 最新の投稿を取得してクライアントに返す
+// 処理: DBから最新の投稿を取得し、最新順に並べ替えてクライアントに返す
 router.get("/get_latest_post", async (req, res) => {
   try {
     const latestPosts = await prisma.post.findMany({
