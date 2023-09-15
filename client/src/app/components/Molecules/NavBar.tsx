@@ -2,11 +2,6 @@
 
 import { useAuth } from '@/app/context/auth';
 import Link from 'next/link';
-import React, { ReactNode } from 'react';
-
-interface Props {
-  children: ReactNode;
-}
 
 const NavBar = () => {
   const { user, logout } = useAuth();
@@ -22,7 +17,7 @@ const NavBar = () => {
             {user ? (
               <>
                 <Link
-                  href={`/profile${user.id}`}
+                  href={`/pages/profile${user.id}`}
                   className='bg-white text-gray-900 py-2 px-3 rounded-lg font-medium'
                 >
                   プロフィール

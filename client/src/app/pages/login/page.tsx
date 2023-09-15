@@ -11,8 +11,8 @@ import React, { useState } from 'react';
 // 既にデータベース内に同じemailが存在しており新規ユーザー作成できない
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const router = useRouter();
   const { login } = useAuth();
@@ -31,6 +31,7 @@ const Login = () => {
 
       // responst.dataにresデータ格納。中のtokenにアクセスし、tokenを取得
       const token = response.data.token;
+      
       login(token);
 
       router.push('/');

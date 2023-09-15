@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 // 特定のURLパスに対するルーティング処理を行うルーターモジュール
 const authRoute = require("./routers/auth");
-const postsRoute = require("./routers/post");
-const usersRoute = require("./routers/user")
+const postsRoute = require("./routers/posts");
+const usersRoute = require("./routers/users");
 const cors = require("cors");
 
 require("dotenv").config();

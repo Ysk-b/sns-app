@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { apiClient } from '../lib/apiClient';
 
 interface AuthProviderProps {
@@ -37,11 +36,11 @@ export const useAuth = () => {
 // ➁ AuthContextに実際に値を入力。
 // login(), logout()を設定したvalueを介して、ラップした子要素内でuseAuth使用が可能になる
 export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<null | { id: number; email: string; username: string }>(null);
-
-  const token = localStorage.getItem('auth_token');
-
+  const [user, setUser] = useState<null |
+  { id: number; email: string; username: string }>(null);
+  
   useEffect(() => {
+    const token = localStorage.getItem('auth_token');
     if (token) {
       apiClient.defaults.headers['Authorization'] = `Bearer ${token}`;
 

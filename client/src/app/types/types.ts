@@ -4,6 +4,7 @@ export interface UserProps {
   email: string;
   password: string;
   posts: PostProps[];
+  profile: ProfileProps;
 }
 
 export interface PostProps {
@@ -12,4 +13,12 @@ export interface PostProps {
   createdAt: string;
   authorId: number;
   author: UserProps;
+}
+
+export interface ProfileProps {
+  id: number;
+  bio: string;
+  profileImageUrl: string;
+  userId: number;
+  user: UserProps;
 }
