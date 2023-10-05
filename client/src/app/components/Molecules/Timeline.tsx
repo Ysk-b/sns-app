@@ -61,6 +61,7 @@ const Timeline = () => {
           <Post key={post.id} post={post} />
         ))}
       </main>
+      <p>page: {pageNumber}</p>
     </div>
   );
 };
